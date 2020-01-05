@@ -26,6 +26,13 @@ config_schema:
   - ["mqtt.will_topic", "status"] # updated programmatically with topic root
   - ["mqtt.will_retain", true]
   - ["provision.led.pin", 2]
+  - ["sensor", "o", { title: "Sensor custom settings" }]
+  - [
+      "sensor.interval",
+      "i",
+      500,
+      { title: "Data refresh period (milliseconds)" },
+    ]
 
 libs:
   - origin: https://github.com/mongoose-os-libs/boards

@@ -11,7 +11,6 @@
 
 #define LIGHT_SENSOR_PIN 5
 #define LED_PIN 16
-#define DEBOUNCE_MS 500
 
 bool oldValue, newValue;
 
@@ -45,9 +44,11 @@ enum mgos_app_init_result mgos_app_init(void)
   mgos_gpio_setup_output(LED_PIN, 0);
   mgos_gpio_set_mode(LIGHT_SENSOR_PIN, MGOS_GPIO_MODE_INPUT);
 
+  long update_interval_ms = mgos_sys_config_get_sensor_interval();
+
   newValue = mgos_gpio_read(LIGHT_SENSOR_PIN);
   oldValue = !newValue;
 
-  mgos_set_timer(DEBOUNCE_MS /* ms */, MGOS_TIMER_REPEAT, process_light_cb, NULL);
+  mgos_set_timer(update_interval_ms /* ms */, MGOS_TIMER_REPEAT, process_light_cb, NULL);
   return MGOS_APP_INIT_SUCCESS;
 }
