@@ -14,8 +14,8 @@ filesystem:
 
 config_schema:
   - ["dash.enable", true]
-  - ["dash.token", "s", "5cCckkou2vO99beDh3BDVHw"]
-  - ["dash.server", "s", "wss://mdash.net/api/v2/rpc"]
+  - ["dash.token", "5cCckkou2vO99beDh3BDVHw"]
+  - ["dash.server", "wss://mdash.net/api/v2/rpc"]
   - ["wifi.sta.enable", true]
   - ["wifi.ap.enable", false]
   - ["wifi.sta.ssid", "Kingswood"]
