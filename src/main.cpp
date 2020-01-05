@@ -24,13 +24,13 @@ static void process_light_cb(void *arg)
     if (newValue == true)
     {
       LOG(LL_INFO, ("ON"));
-      mgos_mqtt_pub("/boiler", "ON", 3, 1, 0);
+      mgos_mqtt_pub("/boiler", "ON", 2, 1, 0);
       mgos_gpio_write(LED_PIN, false); // inverted; = "ON"
     }
     else
     {
       LOG(LL_INFO, ("OFF"));
-      mgos_mqtt_pub("/boiler", "OFF", 4, 1, 0);
+      mgos_mqtt_pub("/boiler", "OFF", 3, 1, 0);
       mgos_gpio_write(LED_PIN, true); // inverted; = "OFF"
     }
   }
