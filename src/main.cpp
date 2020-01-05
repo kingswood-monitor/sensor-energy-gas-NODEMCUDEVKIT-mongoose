@@ -14,29 +14,7 @@
 
 bool oldValue, newValue;
 
-static void process_light_cb(void *arg)
-{
-  newValue = mgos_gpio_read(LIGHT_SENSOR_PIN);
-  if (newValue != oldValue)
-  {
-    oldValue = newValue;
-    if (newValue == true)
-    {
-      LOG(LL_INFO, ("ON"));
-      mgos_mqtt_pub("/boiler", "ON", 2, 1, 0);
-      mgos_gpio_write(LED_PIN, false); // inverted; = "ON"
-    }
-    else
-    {
-      LOG(LL_INFO, ("OFF"));
-      mgos_mqtt_pub("/boiler", "OFF", 3, 1, 0);
-      mgos_gpio_write(LED_PIN, true); // inverted; = "OFF"
-    }
-  }
-
-  // mgos_gpio_toggle(LED_PIN);
-  (void)arg;
-}
+static void process_boiler_state_cb(void *arg);
 
 enum mgos_app_init_result mgos_app_init(void)
 {
@@ -49,6 +27,30 @@ enum mgos_app_init_result mgos_app_init(void)
   newValue = mgos_gpio_read(LIGHT_SENSOR_PIN);
   oldValue = !newValue;
 
-  mgos_set_timer(update_interval_ms /* ms */, MGOS_TIMER_REPEAT, process_light_cb, NULL);
+  mgos_set_timer(update_interval_ms /* ms */, MGOS_TIMER_REPEAT, process_boiler_state_cb, NULL);
   return MGOS_APP_INIT_SUCCESS;
+}
+
+static void process_boiler_state_cb(void *arg)
+{
+  newValue = mgos_gpio_read(LIGHT_SENSOR_PIN);
+  if (newValue != oldValue)
+  {
+    oldValue = newValue;
+    if (newValue == true)
+    {
+      LOG(LL_INFO, ("ON"));
+      mgos_mqtt_pub("/boiler/change", "ON", 2, 1, 0);
+      mgos_gpio_write(LED_PIN, false); // inverted; = "ON"
+    }
+    else
+    {
+      LOG(LL_INFO, ("OFF"));
+      mgos_mqtt_pub("/boiler/change", "OFF", 3, 1, 0);
+      mgos_gpio_write(LED_PIN, true); // inverted; = "OFF"
+    }
+  }
+
+  // mgos_gpio_toggle(LED_PIN);
+  (void)arg;
 }
