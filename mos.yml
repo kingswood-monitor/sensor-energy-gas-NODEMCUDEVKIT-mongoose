@@ -27,10 +27,11 @@ config_schema:
   - ["mqtt.will_retain", true]
   - ["provision.led.pin", 2]
   - ["sensor", "o", { title: "Sensor custom settings" }]
+  - ["sensor.sendstate", "b", true, { title: "send" }]
   - [
       "sensor.interval",
       "i",
-      500,
+      1000,
       { title: "Data refresh period (milliseconds)" },
     ]
 

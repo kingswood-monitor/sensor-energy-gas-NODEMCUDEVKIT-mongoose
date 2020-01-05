@@ -34,6 +34,22 @@ enum mgos_app_init_result mgos_app_init(void)
 static void process_boiler_state_cb(void *arg)
 {
   newValue = mgos_gpio_read(LIGHT_SENSOR_PIN);
+
+  /** Send the state if configuration is true */
+  bool sendState = (mgos_sys_config_get_sensor_sendstate());
+  if (sendState)
+  {
+    if (newValue == true)
+    {
+      mgos_mqtt_pub("/boiler/state", "ON", 2, 1, 0);
+    }
+    else
+    {
+      mgos_mqtt_pub("/boiler/state", "OFF", 3, 1, 0);
+    }
+  }
+
+  /** Send the change if it has changed */
   if (newValue != oldValue)
   {
     oldValue = newValue;
