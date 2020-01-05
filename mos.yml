@@ -13,7 +13,7 @@ filesystem:
   - fs
 
 config_schema:
-  - ["dash.enable", "b", true]
+  - ["dash.enable", true]
   - ["dash.token", "s", "5cCckkou2vO99beDh3BDVHw"]
   - ["dash.server", "s", "wss://mdash.net/api/v2/rpc"]
   - ["wifi.sta.enable", true]
