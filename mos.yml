@@ -13,6 +13,9 @@ filesystem:
   - fs
 
 config_schema:
+  - ["dash.enable", "b", true]
+  - ["dash.token", "s", "5cCckkou2vO99beDh3BDVHw"]
+  - ["dash.server", "s", "wss://mdash.net/api/v2/rpc"]
   - ["wifi.sta.enable", true]
   - ["wifi.ap.enable", false]
   - ["wifi.sta.ssid", "Kingswood"]
@@ -26,6 +29,7 @@ config_schema:
 
 libs:
   - origin: https://github.com/mongoose-os-libs/boards
+  - origin: https://github.com/mongoose-os-libs/dash
   - origin: https://github.com/mongoose-os-libs/ca-bundle
   - origin: https://github.com/mongoose-os-libs/rpc-service-config
   - origin: https://github.com/mongoose-os-libs/rpc-service-fs
