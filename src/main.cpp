@@ -8,9 +8,10 @@
 #include "mgos_provision.h"
 #include "mgos_mqtt.h"
 #include "mgos_gpio.h"
-
 #define LIGHT_SENSOR_PIN 5
 #define LED_PIN 16
+
+#define FIRMWARE_NAME "sensor-energy-gas-NODEMCUDEVKIT-mongoose"
 
 bool oldValue;
 
