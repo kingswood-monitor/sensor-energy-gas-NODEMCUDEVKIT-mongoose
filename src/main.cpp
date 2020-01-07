@@ -8,6 +8,9 @@
 #include "mgos_provision.h"
 #include "mgos_mqtt.h"
 #include "mgos_gpio.h"
+
+#include "sensor-utils.h"
+
 #define LIGHT_SENSOR_PIN 5
 #define LED_PIN 16
 
@@ -19,6 +22,9 @@ static void process_boiler_state_cb(void *arg);
 
 enum mgos_app_init_result mgos_app_init(void)
 {
+
+  utils::printBanner();
+
   mgos_gpio_setup_output(LED_PIN, 0);
   mgos_gpio_set_mode(LIGHT_SENSOR_PIN, MGOS_GPIO_MODE_INPUT);
 

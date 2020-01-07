@@ -9,31 +9,36 @@ tags:
 sources:
   - src
 
-filesystem:
-  - fs
-
 config_schema:
+  - ["uart.baud_rate", 115200]
+  - ["provision.led.pin", 2]
+
   - ["dash.enable", true]
   - ["dash.token", "5cCckkou2vO99beDh3BDVHw"]
   - ["dash.server", "wss://mdash.net/api/v2/rpc"]
+
   - ["wifi.sta.enable", true]
   - ["wifi.ap.enable", false]
   - ["wifi.sta.ssid", "Kingswood"]
   - ["wifi.sta.pass", "wbtc0rar"]
+
   - ["mqtt.enable", true]
-  - ["mqtt.server", 192.168.1.200:1883]
-  - ["mqtt.will_message", "OFFLINE"]
+  - ["mqtt.server", 192.168.1.30:1883]
+  - ["mqtt.topic_root", "s", "boiler", { title: "MQTT topic root" }] # SET THIS TO DEVICE LOCATION
+  - ["mqtt.will_message", "boiler/OFFLINE"]
   - ["mqtt.will_topic", "status"] # updated programmatically with topic root
   - ["mqtt.will_retain", true]
-  - ["provision.led.pin", 2]
+
   - ["sensor", "o", { title: "Sensor custom settings" }]
+  - ["sensor.interval", "i", 1000, { title: "Data refresh period (milliseconds)" }]
   - ["sensor.sendstate", "b", true, { title: "send" }]
-  - [
-      "sensor.interval",
-      "i",
-      1000,
-      { title: "Data refresh period (milliseconds)" },
-    ]
+
+  - ["device.location", "s", "Gas Boiler", { title: "Location of device" }]
+  - ["device.firmware.name", "s", "Energy Sensor", { title: "Firmware name" }]
+  - ["device.firmware.version", "s", "0.2", { title: "Firmware version" }]
+  - ["device.firmware.slug", "s", "sensor-energy-gas-NODEMCUDEVKIT-mongoose", { title: "Device firmware slug" }]
+  - ["device.firmware.os", "s", "mongoose", { title: "Firmware operating system" }]
+  - ["device.type", "s", "NODEMCUDEVKIT", { title: "MCU typye" }]
 
 libs:
   - origin: https://github.com/mongoose-os-libs/boards
@@ -45,6 +50,9 @@ libs:
   - origin: https://github.com/mongoose-os-libs/wifi
   - origin: https://github.com/mongoose-os-libs/mqtt
   - origin: https://github.com/mongoose-os-libs/provision
+
+  - origin: https://github.com/kingswood-monitor/mgos_utilities
+    version: 1.0
 
 # Used by the mos tool to catch mos binaries incompatible with this file format
 manifest_version: 2017-09-29
